@@ -1,6 +1,21 @@
-x_values <- seq(1, 3)
-y_values <- seq(1,3)
-
 library(ggplot2)
-ggplot() +
-  geom_line(aes(x=x_values, y = y_values))
+library(dplyr)
+library(readr)
+washington <- read.csv("https://raw.githubusercontent.com/melaniewalsh/Neat-Datasets/main/us-prison-jail-rates-1990-WA.csv")
+
+aggregate_black_avg <- aggregate(black_jail_pop_rate ~ year, data = washington, FUN = mean)
+aggregate_white_avg <- aggregate(white_jail_pop_rate ~ year, data = washington, FUN = mean)
+avg_jail_pop <- aggregate_black_avg %>%
+  full_join(aggregate_white_avg, by = "year")
+
+#x_values <- seq(1990, 2020)
+#y_values <- seq(0,3500)
+
+ggplot(avg_jail_pop, aes(x = year)) +
+  geom_line(aes(y = black_jail_pop_rate, color = "blue"), linewidth = 1.2) +
+  geom_line(aes(y = white_jail_pop_rate, color = "red"), linewidth = 1.2) +
+  theme_minimal() +
+  labs(title = "Average Black and White Jail Population from 1990-2018",
+       y = "Jail Population",
+       x = "Year") +
+  scale_color_manual(values = c("red", "blue"), labels = c("Black Population", "White population"), guide = guide_legend(title = "Race"))

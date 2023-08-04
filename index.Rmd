@@ -3,15 +3,27 @@ title: "A3: Incarceration"
 output: html_document
 ---
 
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+library(dplyr)
+```
+
 ### Introduction
 
-An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
+The United States' criminal legal system has a history of overcriminalization, leading to racial disparities in arrests and sentencing. Low-level, nonviolent offenses related to poverty make up over 80% of all arrests. This has resulted in the over policing of people of color, particularly Black individuals, and filled jails with those facing homelessness, substance use, and mental health issues. The system perpetuates injustice and excessive use of force by the police, criminalizes poverty, and contributes to the high incarceration rate in the country.
+
+I'm choosing to focus on Washington specifically as I find it most relevant. I also think that choosing a narrower scope would give me more detailed insight on various demographics. In terms of variables, I'm mainly looking at the Black jail population across various counties and comparing this to the corresponding rates for White people. This is because it has been a historical discrepancy that has certainly been fueled with recent events. I'd also like to build off of previous projects that have analyzed the protests that have started because of these injustices. 
+
+```{r summary, echo=FALSE, message=FALSE}
+source("summary.R")
+```
 
 ### Summary Information
 
 Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
 
-These will likely be calculated using your DPLYR skills, answering questions such as: 
+These will likely be calculated using your DPLYR skills, answering questions such as:
 
 - What is the average value of my variable across all the counties (in the current year)?
 - Where is my variable the highest / lowest?
@@ -19,53 +31,35 @@ These will likely be calculated using your DPLYR skills, answering questions suc
 
 Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
 
+The summary script validated the significant discrepancies between the Black and White population in the Washington state jail system as of 2018. Overall, there were `r avg_jail_2018` people per 100,000 in Washington jails. The average White population consist of `r avg_jail_2018_white` per 100,000, while the Black population is over triple at `r avg_jail_2018_black` per 100,000. 
+
+These differences are magnified when comparing the maximum jail rates as well. In 2018, the highest rate of Black population jail was a staggering `r max_jail_rate_black`, while the highest White rate was `r max_jail_rate_white`. While this number is high, it is still less than the average of the Black jail rate across the state
+
+
 ### The Dataset
 
-Who collected the data?  
-How was the data collected or generated?  
-Why was the data collected?  
-How many observations (rows) are in your data?  
-How many features (columns) are in the data?  
-What, if any, ethical questions or questions of power do you need to consider when working with this data?  
-What are possible limitations or problems with this data?   (at least 200 words)
 
+The Vera organization compiled the data together from numerous data collections from the Bureau of Justice Statistics. Throughout the years, they were able to receive numerous grants that allowed them to gain access to newer updated data sets to improve their research. The purpose of this project is to gather substantial evidence for these injustices to eventually disrupt and end the racist incarceration system by showing how rampant the issue is. The Washington data set has `r wa_observations` observations and `r wa_features` features. When working with this data, it's important to consider the story behind these numbers and the various causes that led to this inequality in the prison demographics. This could include over-policing or the war on drugs. As the textbook discusses, data is inherently biased and it's necessary to make this consideration when analyzing numbers. Some limitations of the dataset would be a lack of up to date information as of 2023 since the latest information is from 2018 for Washington counties. Another possible problem would be the varying racial demographics across the different counties that would have an effect on the jail rates of each race. For example, a mostly White county could have a relatively low rate of Black jail rates even if they were incarcerating Black people at disproportionately high rates. 
 
 ### Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The first chart that you will create and include will show the trend over time of your variable/topic. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - This may mean showing the same measure for different locations or different racial groups. Think carefully about a meaningful comparison of locations (e.g., the top 10 counties in a state, top 10 states, etc.)
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1_example.R")}
+```{r, echo = FALSE, code = readLines("chart1_example.R")}
 ```
+
+The chart shows the varying jail rates of White and Black people from 1990-2018 in Washington state. It was included to show a substantial discrepancy between the 2 races and is a problem that still needs to be addressed. The white rate remained relatively stable with a slight increase. The Black rate has been trending downwards to closer align with the White rate, though, the difference still exists. Fortunately, measures are seemingly being put in place to close this gap. 
 
 ### Variable Comparison Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+```{r, echo = FALSE, code = readLines("chart2_example.R")}
+```
 
-The second chart that you will create and include will show how two different (continuous) variables are related to one another. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
+This scatterplot chart compares the prison rates and jail rates for the Black population as of 2018. There is a clear correlation between these two variables, which communicates that the problem exists in both prisons and jails across Washington state, each requiring equal attention. It's surprising that the correlation is nearly 1:1, with an increase in the jail population resulting in an equal increase in the prison population. 
 
 ### Map
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+```{r, echo = FALSE, code = readLines("map_example.R")}
+```
 
-The last chart that you will create and include will show how a variable is distributed geographically. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+The map of Washington shows how the Black jail rate varies across the counties. The darker blues represent a higher rate, while the lighter blues show a relatively lower rate. This chart displays how the Black jail rate is not uniform across the state at all, with certain more rural counties being disproportionately high. It's unclear if this is due to a higher Black population in these areas increasing the jail rate, or if there a systematic bias. 
 
-- Your map needs a title
-- Your color scale needs a legend with a clear label
-- Use a map based coordinate system to set the aspect ratio of your map
-
+The Vera website also mentions the "rural jail boom," which is driven by a few factors. Poverty in these areas inherently drives crime rates up along with limited community resources for people in need. In addition, the federal government has funded more jail locations in these rural areas to increase capacity in cheaper locations. 
