@@ -7,6 +7,8 @@ output: html_document
 library(knitr)
 library(tidyverse)
 library(dplyr)
+library(purrr)
+library(maps)
 ```
 
 ### Introduction
@@ -21,23 +23,12 @@ source("summary.R")
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
-
-These will likely be calculated using your DPLYR skills, answering questions such as:
-
-- What is the average value of my variable across all the counties (in the current year)?
-- Where is my variable the highest / lowest?
-- How much has my variable change over the last N years?
-
-Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
-
 The summary script validated the significant discrepancies between the Black and White population in the Washington state jail system as of 2018. Overall, there were `r avg_jail_2018` people per 100,000 in Washington jails. The average White population consist of `r avg_jail_2018_white` per 100,000, while the Black population is over triple at `r avg_jail_2018_black` per 100,000. 
 
 These differences are magnified when comparing the maximum jail rates as well. In 2018, the highest rate of Black population jail was a staggering `r max_jail_rate_black`, while the highest White rate was `r max_jail_rate_white`. While this number is high, it is still less than the average of the Black jail rate across the state
 
 
 ### The Dataset
-
 
 The Vera organization compiled the data together from numerous data collections from the Bureau of Justice Statistics. Throughout the years, they were able to receive numerous grants that allowed them to gain access to newer updated data sets to improve their research. The purpose of this project is to gather substantial evidence for these injustices to eventually disrupt and end the racist incarceration system by showing how rampant the issue is. The Washington data set has `r wa_observations` observations and `r wa_features` features. When working with this data, it's important to consider the story behind these numbers and the various causes that led to this inequality in the prison demographics. This could include over-policing or the war on drugs. As the textbook discusses, data is inherently biased and it's necessary to make this consideration when analyzing numbers. Some limitations of the dataset would be a lack of up to date information as of 2023 since the latest information is from 2018 for Washington counties. Another possible problem would be the varying racial demographics across the different counties that would have an effect on the jail rates of each race. For example, a mostly White county could have a relatively low rate of Black jail rates even if they were incarcerating Black people at disproportionately high rates. 
 
@@ -56,7 +47,6 @@ The chart shows the varying jail rates of White and Black people from 1990-2018 
 This scatterplot chart compares the prison rates and jail rates for the Black population as of 2018. There is a clear correlation between these two variables, which communicates that the problem exists in both prisons and jails across Washington state, each requiring equal attention. It's surprising that the correlation is nearly 1:1, with an increase in the jail population resulting in an equal increase in the prison population. 
 
 ### Map
-
 ```{r, echo = FALSE, code = readLines("map_example.R")}
 ```
 
